@@ -1,8 +1,8 @@
 expose:
   type: clusterIP
   tls:
-    enabled: false
-externalURL: http://harbor.localhost # TODO
+    enabled: false # TODO
+# externalURL: http://harbor.localhost # TODO
 
 
 persistence:
