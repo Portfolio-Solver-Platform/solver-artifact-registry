@@ -1,0 +1,24 @@
+expose:
+  type: clusterIP
+  tls:
+    enabled: false
+externalURL: http://harbor.localhost # TODO
+
+
+persistence:
+  enabled: true
+  persistentVolumeClaim:
+    registry:
+      size: 50Gi
+    database:
+      size: 5Gi
+    redis:
+      size: 1Gi
+    jobservice:
+      size: 1Gi
+    trivy:
+      size: 5Gi
+
+
+harborAdminPassword: {{.HARBOR_ADMIN_PASSWORD}}
+

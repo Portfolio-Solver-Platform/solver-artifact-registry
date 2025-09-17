@@ -1,0 +1,34 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: solver-artifact-registry-skaffold
+
+deploy:
+  helm:
+    releases:
+      - name: harbor
+        namespace: harbor
+        createNamespace: true
+        repo: https://helm.goharbor.io
+        remoteChart: harbor
+        wait: true
+        
+profiles:
+- name: dev
+  activation:
+    - command: dev
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value:
+        - helm/values.yaml
+
+- name: prod
+  activation:
+    - command: prod
+  patches:
+    - op: add
+      path: /deploy/helm/releases/0/valuesFiles
+      value:
+        - helm/values.yaml
+        - helm/values-prod.yaml

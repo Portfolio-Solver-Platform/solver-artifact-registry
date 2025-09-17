@@ -1,0 +1,8 @@
+apiVersion: v2
+name: solver-artifact-registry
+version: 0.1.0
+
+dependencies:
+  - name: harbor
+    version: 1.17.2  
+    repository: https://helm.goharbor.io
