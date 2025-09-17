@@ -7,9 +7,6 @@ on:
 permissions:
   contents: read
 
-env:
-  CI_IMAGE: local-ci:${{ github.sha }}
-
 
 jobs:
   ci:
@@ -17,7 +14,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Trivy (config & fs)
         uses: aquasecurity/trivy-action@0.26.0
         with:
