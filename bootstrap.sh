@@ -1,3 +1,3 @@
 #!/bin/sh
 
-kubectl create namespace harbor
+kubectl apply -f ./namespace.yaml
