@@ -1,2 +1,5 @@
 helm/charts
 helm/tmpcharts-*
+
+.DS_STORE
+.env
