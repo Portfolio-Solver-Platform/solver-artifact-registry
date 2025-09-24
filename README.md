@@ -1,6 +1,11 @@
+
+
 # solver-artifact-registry
 artifact registry for minizinc solvers
 
+
+## First time setup for local development
+Install terraform
 
 ## How to run it
 

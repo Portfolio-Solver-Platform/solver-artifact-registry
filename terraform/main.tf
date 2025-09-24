@@ -20,11 +20,13 @@ resource "harbor_project" "psp" {
   vulnerability_scanning = true
 
   deployment_security = "high"
+
+  enable_content_trust_cosign = true
 }
 
 resource "harbor_interrogation_services" "main" {
-  default_scanner           = "Trivy"  
-  vulnerability_scan_policy  = "Daily"  
+  default_scanner = "Trivy"
+  vulnerability_scan_policy = "Daily"
 }
 
 
@@ -41,11 +43,6 @@ resource "harbor_robot_account" "cd" {
     access {
       resource = "repository"
       action   = "push"
-      effect   = "allow"
-    }
-    access {
-      resource = "repository"
-      action   = "pull"
       effect   = "allow"
     }
     
