@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 HARBOR_ADMIN_PASS="${HARBOR_ADMIN_PASS:=admin}"
 
 terraform -chdir=terraform init
