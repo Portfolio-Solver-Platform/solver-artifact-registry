@@ -17,7 +17,9 @@ provider "harbor" {
   password = var.harbor_admin_password
 }
 
-provider "kubernetes" {}
+provider "kubernetes" {
+  # config_path    = "~/.kube/config"
+}
 
 resource "harbor_project" "psp" {
   name   = "psp"
@@ -83,18 +85,19 @@ resource "harbor_robot_account" "pull" {
   }
 }
 
-# resource "kubernetes_secret" "example" {
-#   metadata {
-#     name = "basic-auth"
-#   }
+resource "kubernetes_secret" "example" {
+  metadata {
+    name      = "basic-auth"
+    namespace = var.kubernetes_namespace
+  }
 
-#   data = {
-#     username = "admin"
-#     password = "P4ssw0rd"
-#   }
+  data = {
+    username = "admin"
+    password = "P4ssw0rd"
+  }
 
-#   type = "kubernetes.io/basic-auth"
-# }
+  type = "kubernetes.io/basic-auth"
+}
 # resource "kubernetes_secret" "harbor_pull_secret" {
 #   metadata {
 #     name      = "harbor-creds"
@@ -144,7 +147,7 @@ resource "kubernetes_secret" "harbor_creds" {
     ".dockerconfigjson" = jsonencode({
       auths = {
         "${var.harbor_url}" = {
-          auth = base64encode("${harbor_robot_account.cd.name}:${harbor_robot_account.cd.secret}")
+          auth = base64encode("robot$$${harbor_project.psp.name}+${harbor_robot_account.cd.name}:${harbor_robot_account.cd.secret}")
         }
       }
     })
