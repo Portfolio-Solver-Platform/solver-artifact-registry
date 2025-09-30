@@ -1,7 +1,7 @@
 variable "harbor_url" {
-  description = "Base URL to Harbor (e.g., http://harbor.local)"
+  description = "Base URL to Harbor (e.g.,harbor.local)"
   type        = string
-  default     = "http://harbor.local"
+  default     = "harbor.local"
 }
 
 variable "harbor_admin_user" {
