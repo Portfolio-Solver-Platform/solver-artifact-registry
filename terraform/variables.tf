@@ -15,3 +15,11 @@ variable "harbor_admin_password" {
   type        = string
   sensitive   = true
 }
+
+
+variable "kubernetes_namespace" {
+  type        = string
+  description = "The Kubernetes namespace to create the secret in."
+  default     = "psp"
+}
+
