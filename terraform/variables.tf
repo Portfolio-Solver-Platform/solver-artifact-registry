@@ -4,6 +4,12 @@ variable "harbor_url" {
   default     = "harbor.local"
 }
 
+variable "harbor_internal_url" {
+  description = "kubernetes url"
+  type        = string
+  default     = "harbor.harbor.svc.cluster.local"
+}
+
 variable "harbor_admin_user" {
   description = "Harbor admin username"
   type        = string
