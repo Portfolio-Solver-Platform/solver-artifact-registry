@@ -115,20 +115,6 @@ resource "harbor_robot_account" "pull" {
   }
 }
 
-# resource "kubernetes_secret" "example" {
-#   metadata {
-#     name      = "basic-auth"
-#     namespace = var.kubernetes_namespace
-#   }
-
-#   data = {
-#     username = "admin"
-#     password = "P4ssw0rd"
-#   }
-
-#   type = "kubernetes.io/basic-auth"
-# }
-
 
 
 resource "kubernetes_secret" "harbor-creds" {
