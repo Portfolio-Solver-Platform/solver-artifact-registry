@@ -12,7 +12,12 @@ deploy:
         repo: https://helm.goharbor.io
         remoteChart: harbor
         wait: true
-        
+    # hooks:
+    #   after:
+    #     - host:
+    #         command: ["sh", "-c", "./apply_terraform.sh"]
+    #         os: [darwin, linux]
+
 profiles:
 - name: dev
   activation:

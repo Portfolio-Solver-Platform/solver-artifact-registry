@@ -1,7 +1,13 @@
 variable "harbor_url" {
-  description = "Base URL to Harbor (e.g., http://harbor.local)"
+  description = "Base URL to Harbor (e.g.,harbor.local)"
   type        = string
-  default     = "http://harbor.local"
+  default     = "harbor.local"
+}
+
+variable "harbor_internal_url" {
+  description = "kubernetes url"
+  type        = string
+  default     = "harbor.harbor.svc.cluster.local"
 }
 
 variable "harbor_admin_user" {
@@ -15,3 +21,11 @@ variable "harbor_admin_password" {
   type        = string
   sensitive   = true
 }
+
+
+variable "kubernetes_namespace" {
+  type        = string
+  description = "The Kubernetes namespace to create the secret in."
+  default     = "psp"
+}
+
