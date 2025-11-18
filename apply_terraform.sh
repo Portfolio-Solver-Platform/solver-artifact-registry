@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 HARBOR_ADMIN_PASS="${HARBOR_ADMIN_PASS:=admin}"
 KUBE_CONFIG_PATH="${KUBE_CONFIG_PATH:="~/.kube/config"}"
 export KUBE_CONFIG_PATH=$KUBE_CONFIG_PATH

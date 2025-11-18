@@ -26,7 +26,7 @@ resource "harbor_project" "psp" {
   public = false
   vulnerability_scanning = true
   deployment_security = "high"
-  enable_content_trust_cosign = true
+  # enable_content_trust_cosign = true
 }
 
 resource "harbor_project" "psp_solvers" {
@@ -34,7 +34,7 @@ resource "harbor_project" "psp_solvers" {
   public = false
   vulnerability_scanning = true
   deployment_security = "high"
-  enable_content_trust_cosign = true
+  # enable_content_trust_cosign = true
 }
 
 resource "harbor_interrogation_services" "main" {
@@ -89,12 +89,6 @@ resource "harbor_robot_account" "pull" {
       action   = "pull"
       effect   = "allow"
     }
-
-    access {
-      resource = "repository"
-      action   = "list"
-      effect   = "allow"
-    }
   }
 
   permissions {
@@ -104,6 +98,25 @@ resource "harbor_robot_account" "pull" {
     access {
       resource = "repository"
       action   = "pull"
+      effect   = "allow"
+    }
+  }
+}
+
+
+resource "harbor_robot_account" "push" {
+  name        = "push"
+  description = "A robot that enables the solver director to push images into the solvers project"
+  duration    = -1            
+  level       = "project"     
+
+  permissions {
+    kind      = "project"
+    namespace = harbor_project.psp_solvers.name
+
+    access {
+      resource = "repository"
+      action   = "push"
       effect   = "allow"
     }
 
@@ -117,9 +130,10 @@ resource "harbor_robot_account" "pull" {
 
 
 
-resource "kubernetes_secret" "harbor-creds" {
+
+resource "kubernetes_secret" "harbor-creds-pull" {
   metadata {
-    name      = "harbor-creds"
+    name      = "harbor-creds-pull"
     namespace = var.kubernetes_namespace
   }
 
@@ -136,4 +150,25 @@ resource "kubernetes_secret" "harbor-creds" {
   }
 }
 
+
+
+
+resource "kubernetes_secret" "harbor-creds-push" {
+  metadata {
+    name      = "harbor-creds-push"
+    namespace = var.kubernetes_namespace
+  }
+
+  type = "kubernetes.io/dockerconfigjson"
+
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        "${var.harbor_url}" = {
+          auth = base64encode("${harbor_robot_account.push.full_name}:${harbor_robot_account.push.secret}")
+        }
+      }
+    })
+  }
+}
 
