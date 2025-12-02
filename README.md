@@ -5,7 +5,8 @@ artifact registry for minizinc solvers
 
 
 ## First time setup for local development
-Install terraform
+- Install terraform
+- Add harbor.local as a inseucure registry to docker engine if you are running locally
 
 ## How to run it
 
