@@ -12,7 +12,7 @@ terraform {
 }
 
 provider "harbor" {
-  url      = "http://${var.harbor_url}"
+  url      = "http://${var.harbor_internal_url}"
   username = var.harbor_admin_user
   password = var.harbor_admin_password
 }
