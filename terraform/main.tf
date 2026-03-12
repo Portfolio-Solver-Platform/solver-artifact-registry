@@ -4,7 +4,7 @@ terraform {
       source  = "goharbor/harbor"
       version = ">= 3.10.0"
     }
-      kubernetes = {
+    kubernetes = {
       source  = "hashicorp/kubernetes"
       version = ">= 2.38.0"
     }
@@ -22,23 +22,23 @@ provider "kubernetes" {
 }
 
 resource "harbor_project" "psp" {
-  name   = "psp"
-  public = false
+  name                   = "psp"
+  public                 = false
   vulnerability_scanning = true
-  deployment_security = "high"
+  deployment_security    = "high"
   # enable_content_trust_cosign = true
 }
 
 resource "harbor_project" "psp_solvers" {
-  name   = "psp-solvers"
-  public = false
+  name                   = "psp-solvers"
+  public                 = false
   vulnerability_scanning = true
-  deployment_security = "high"
+  deployment_security    = "high"
   # enable_content_trust_cosign = true
 }
 
 resource "harbor_interrogation_services" "main" {
-  default_scanner = "Trivy"
+  default_scanner           = "Trivy"
   vulnerability_scan_policy = "Daily"
 }
 
@@ -46,24 +46,24 @@ resource "harbor_interrogation_services" "main" {
 resource "harbor_robot_account" "cd" {
   name        = "cd"
   description = "CD robot with push permission"
-  duration    = -1            
-  level       = "project"     
+  duration    = -1
+  level       = "project"
 
   permissions {
     kind      = "project"
-    namespace = harbor_project.psp.name   
+    namespace = harbor_project.psp.name
 
     access {
       resource = "repository"
       action   = "push"
       effect   = "allow"
     }
-    
+
   }
 }
 
 output "robot_name" {
-  value = harbor_robot_account.cd.name    
+  value = harbor_robot_account.cd.name
 }
 
 output "robot_secret" {
@@ -107,8 +107,8 @@ resource "harbor_robot_account" "pull" {
 resource "harbor_robot_account" "push" {
   name        = "push"
   description = "A robot that enables the solver director to push images into the solvers project"
-  duration    = -1            
-  level       = "project"     
+  duration    = -1
+  level       = "project"
 
   permissions {
     kind      = "project"

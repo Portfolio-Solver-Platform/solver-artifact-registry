@@ -15,8 +15,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform fmt
+        run: terraform fmt -check -recursive terraform/
+
+      - name: Helm lint
+        run: helm lint helm/
+
       - name: Trivy (config & fs)
-        uses: aquasecurity/trivy-action@0.26.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: 'fs'
           format: 'table'
