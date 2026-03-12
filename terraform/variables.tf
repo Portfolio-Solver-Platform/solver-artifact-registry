@@ -7,7 +7,7 @@ variable "harbor_url" {
 variable "harbor_internal_url" {
   description = "kubernetes url"
   type        = string
-  default     = "artifact-registry-harbor-core.harbor.svc.cluster.local"
+  default     = "harbor-core.harbor.svc.cluster.local"
 }
 
 variable "harbor_admin_user" {
